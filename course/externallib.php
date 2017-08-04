@@ -2123,7 +2123,9 @@ class core_course_external extends external_api {
         return new external_function_parameters(
             array(
                 'courseid' => new external_value(PARAM_INT, 'id of the course'),
-                'sectionnumber' => new external_value(PARAM_INT, 'section number', VALUE_DEFAULT, 0)
+                'sectionnumber' => new external_value(PARAM_INT, 'section number', VALUE_DEFAULT, 0),
+                'deviceid'=> new external_value(PARAM_ALPHANUMEXT, 'device id',VALUE_DEFAULT,0),
+                'viewedtimestamp'=>new external_value(PARAM_INT,'time of view',VALUE_DEFAULT,0)
             )
         );
     }
@@ -2137,14 +2139,16 @@ class core_course_external extends external_api {
      * @since Moodle 2.9
      * @throws moodle_exception
      */
-    public static function view_course($courseid, $sectionnumber = 0) {
+    public static function view_course($courseid, $sectionnumber = 0,$deviceid='',$viewedtimestamp='') {
         global $CFG;
         require_once($CFG->dirroot . "/course/lib.php");
 
         $params = self::validate_parameters(self::view_course_parameters(),
                                             array(
                                                 'courseid' => $courseid,
-                                                'sectionnumber' => $sectionnumber
+                                                'sectionnumber' => $sectionnumber,
+                                                'deviceid' => $deviceid,
+                                                'viewedtimestamp' => $viewedtimestamp
                                             ));
 
         $warnings = array();
@@ -2165,7 +2169,7 @@ class core_course_external extends external_api {
             }
         }
 
-        course_view($context, $params['sectionnumber']);
+        course_view($context, $params['sectionnumber'], $params['deviceid'], $params['viewedtimestamp']);
 
         $result = array();
         $result['status'] = true;

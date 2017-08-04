@@ -37,8 +37,11 @@ $sectionid  = optional_param('sectionId', 0, PARAM_INT);
 $beforeid   = optional_param('beforeId', 0, PARAM_INT);
 $value      = optional_param('value', 0, PARAM_INT);
 $id         = optional_param('id', 0, PARAM_INT);
+$deviceid         = optional_param('deviceid', 0, PARAM_ALPHANUMEXT);
+$viewedtimestamp         = optional_param('viewedtimestamp', 0, PARAM_INT);
 
-$PAGE->set_url('/course/rest.php', array('courseId'=>$courseid,'class'=>$class));
+$PAGE->set_url('/course/rest.php', array('courseId'=>$courseid,'class'=>$class,
+'deviceid'=>$deviceid,'viewedtimestamp'=>$viewedtimestamp));
 
 //NOTE: when making any changes here please make sure it is using the same access control as course/mod.php !!
 

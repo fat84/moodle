@@ -67,7 +67,14 @@ class course_viewed extends base {
         } else if (!empty($this->other['coursesectionid'])) {
             $sectionstr = "section number '{$this->other['coursesectionid']}' of the ";
         }
-        $description = "The user with id '$this->userid' viewed the " . $sectionstr . "course with id '$this->courseid'.";
+        $description = "The user with id '$this->userid' viewed the " . $sectionstr . "course with id '$this->courseid'";
+        if (!empty($this->other['deviceid'])) {
+          $description .=" using device with id '".$this->other['deviceid']."'";
+        }
+        if (!empty($this->other['viewedtimestamp'])) {
+          $seconds = $this->other['viewedtimestamp']/1000;
+          $description .=" on ".date(DATE_RFC822,$seconds);
+        }
 
         return $description;
     }

@@ -255,6 +255,8 @@ class mod_wiki_external extends external_api {
         return new external_function_parameters (
             array(
                 'pageid' => new external_value(PARAM_INT, 'Wiki page ID.'),
+                'deviceid' => new external_value(PARAM_ALPHANUMEXT, 'Device ID.'),
+                'viewedtimestamp' => new external_value(PARAM_ALPHANUMEXT, 'View date.')
             )
         );
     }

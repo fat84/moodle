@@ -3679,12 +3679,20 @@ function course_change_sortorder_after_course($courseorid, $moveaftercourseid) {
  * @param int $sectionnumber section number
  * @since Moodle 2.9
  */
-function course_view($context, $sectionnumber = 0) {
+function course_view($context, $sectionnumber = 0, $deviceid='',$viewedtimestamp='') {
 
     $eventdata = array('context' => $context);
 
     if (!empty($sectionnumber)) {
         $eventdata['other']['coursesectionnumber'] = $sectionnumber;
+    }
+
+    if (!empty($deviceid)) {
+        $eventdata['other']['deviceid'] = $deviceid;
+    }
+
+    if (!empty($viewedtimestamp)) {
+        $eventdata['other']['viewedtimestamp'] = $viewedtimestamp;
     }
 
     $event = \core\event\course_viewed::create($eventdata);
